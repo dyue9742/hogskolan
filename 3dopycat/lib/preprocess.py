@@ -1,7 +1,6 @@
 import numpy as np
-from numpy.random import randint
 from PIL import Image
-from .config import DefaultSetup
+from config import DefaultSetup
 
 def crop_center(target: str, dim=DefaultSetup.CONST.IMG_DIM):
     img = Image.open(target)
@@ -15,5 +14,5 @@ def crop_center(target: str, dim=DefaultSetup.CONST.IMG_DIM):
 def crop_random(target: str, dim=DefaultSetup.CONST.IMG_DIM):
     img = Image.open(target)
     _w, _h = img.size
-    crop_loc = [np.random.randint(0, _h - dim), np.random, randint(0, _w - dim)]
-    pass
+    crop_loc = [np.random.randint(0, _w - dim), np.random.randint(0, _h - dim)]
+    return img.crop((crop_loc[0], crop_loc[1], crop_loc[0] + dim, crop_loc[1] + dim))
